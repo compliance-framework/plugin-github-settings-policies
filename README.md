@@ -1,4 +1,4 @@
-# Template for policies for use in Compliance Framework plugins
+# Template for policies for use in the Github Settings plugin
 
 ## Testing
 
@@ -19,19 +19,7 @@ make build
 ## Running policies locally
 
 ```shell
-opa eval -I -b policies -f pretty data.compliance_framework.local_ssh <<EOF 
-{
-  "passwordauthentication": [
-    "yes"
-  ],
-  "permitrootlogin": [
-    "with-password"
-  ],
-  "pubkeyauthentication": [
-    "no"
-  ]
-}
-EOF
+cat example-data/testorg-unremediated.json | opa eval -I -b policies -f pretty data.compliance_framework
 ```
 
 ## Writing policies.
@@ -39,17 +27,26 @@ EOF
 Policies are written in the [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) language.
 
 ```rego
-package ssh.deny_password_auth
+package compliance-framework.mfa_enabled
 
-import future.keywords.in
-
-violation[{
-    "title": "Host SSH is using password authentication.",
-    "description": "Host SSH should not use password, as this is insecure to brute force attacks from external sources.",
-    "remarks": "Migrate to using SSH Public Keys, and switch off password authentication."
-}] {
-	"yes" in input.passwordauthentication
+violation[] {
+	input.organization.two_factor_requirement_enabled == false
 }
+
+title := "Two Factor Authentication is required at an organization level"
+description := "Two factor authentication should be enabled and enforced for all users within the Github Organization to make it harder for malicious actors to gain access to the organizations settings and repositories & settings"
+remarks := "More information from Github can be found here: https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-two-factor-authentication-for-your-organization/requiring-two-factor-authentication-in-your-organization"
+
+controls := [
+    {
+        "class": "SAMA_CSF_1.0",
+        "control-id": "3.3.5", 
+        "statement-ids": [
+            "4.e",
+            "f.1.a",
+        ]
+    },
+]
 ```
 
 ## Metadata

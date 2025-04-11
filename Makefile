@@ -2,10 +2,10 @@
 
 # Variables
 REGISTRY_URL := ghcr.io
-NAMESPACE := chris-cmsoft
-POLICY_NAME := local-ssh-policies
+NAMESPACE := compliance-framework
+POLICY_NAME := plugin-github-settings-policies
 VERSION := latest
-POLICY_DIR := ./ssh # Directory containing your .rego files
+POLICY_DIR := ./policies # Directory containing your .rego files
 
 # Build and Push Commands
 .PHONY: all build bundle push clean
