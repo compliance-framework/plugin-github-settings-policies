@@ -1,3 +1,4 @@
+package compliance_framework.mfa_enabled
 # METADATA
 # title: Github Settings - Organizations - Two Factor Authentication Required
 # description: Ensure that 2FA is enabled for all users within the organization, making it harder for TAs to gain access to the organization's repos and settings
@@ -6,8 +7,6 @@
 #     - <control-id>
 #   schedule: "* * * * *"
 
-
-package compliance_framework.mfa_enabled
 
 violation[{}] if {
     input.organization.two_factor_requirement_enabled == false
