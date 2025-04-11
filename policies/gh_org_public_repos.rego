@@ -1,3 +1,5 @@
+
+package compliance_framework.public_repos
 # METADATA
 # title: Github Settings - Organizations - Public Repos and Gists
 # description: "The organization should not have any public repos or gists if it is a sensitive organization"
@@ -7,7 +9,6 @@
 #   schedule: "* * * * *"
 
 
-package compliance_framework.public_repos
 
 checks["repos"] if {
 	input.organization.public_repos > 0
