@@ -1,15 +1,7 @@
 package compliance_framework.dependabot_alerts
-# METADATA
-# title: Github Settings - Organizations - Dependabot alerts enabled for new repos
-# description: "All new repositories should be set up for Dependabot alerts as the default. Note: Endpoint is closing down at some point and moving to code security configurations: See https://docs.github.com/rest/code-security/configurations"
-# custom:
-#   controls:
-#     - <control-id>
-#   schedule: "* * * * *"
-
 
 violation[{}] if {
-    input.organization.dependabot_alerts_enabled_for_new_repositories == false
+    input.dependabot_alerts_enabled_for_new_repositories == false
 }
 
 title := "Dependabot alerts enabled for new repositories"
