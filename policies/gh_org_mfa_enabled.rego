@@ -36,4 +36,12 @@ controls := [
         "class": "SP800-53-enhancement",
         "control-id": "ia-2.2",  # Multi-factor Authentication for Non-privileged Accounts
     },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IM-3.10",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IM-3.11",
+    },
 ]

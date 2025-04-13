@@ -22,4 +22,28 @@ controls := [
             "TV-6.8_statement"
         ]
     },
+    {
+        "class": "SP800-218",
+        "control-id": "RV-1.1"
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-1.3"
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-5.1"
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-8.2"
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IG-2.5",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "TV-6.8",
+    },
 ]
