@@ -1,15 +1,7 @@
 package compliance_framework.mfa_enabled
-# METADATA
-# title: Github Settings - Organizations - Two Factor Authentication Required
-# description: Ensure that 2FA is enabled for all users within the organization, making it harder for TAs to gain access to the organization's repos and settings
-# custom:
-#   controls:
-#     - <control-id>
-#   schedule: "* * * * *"
-
 
 violation[{}] if {
-    input.organization.two_factor_requirement_enabled == false
+    input.two_factor_requirement_enabled == false
 }
 
 title := "Two Factor Authentication is required at an organization level"
@@ -43,5 +35,13 @@ controls := [
     {
         "class": "SP800-53-enhancement",
         "control-id": "ia-2.2",  # Multi-factor Authentication for Non-privileged Accounts
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IM-3.10",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IM-3.11",
     },
 ]

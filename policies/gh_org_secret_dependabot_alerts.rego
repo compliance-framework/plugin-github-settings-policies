@@ -1,15 +1,7 @@
 package compliance_framework.dependabot_alerts
-# METADATA
-# title: Github Settings - Organizations - Dependabot alerts enabled for new repos
-# description: "All new repositories should be set up for Dependabot alerts as the default. Note: Endpoint is closing down at some point and moving to code security configurations: See https://docs.github.com/rest/code-security/configurations"
-# custom:
-#   controls:
-#     - <control-id>
-#   schedule: "* * * * *"
-
 
 violation[{}] if {
-    input.organization.dependabot_alerts_enabled_for_new_repositories == false
+    input.dependabot_alerts_enabled_for_new_repositories == false
 }
 
 title := "Dependabot alerts enabled for new repositories"
@@ -18,18 +10,39 @@ remarks := "Endpoint is closing down at some point and moving to code security c
 
 controls := [
     {
-        "class": "SP800-53",
+        "class": "SP800-53-enhancement",
         "control-id": "ra-5.4",  # Discoverable Information
-        "statement-ids": []
     },
     {
         "class": "SP800-218",
-        "control_id": "RV-1.1",
-        "statement-ids": []
+        "control-id": "RV-1.1",
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-1.3"
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-5.1"
+    },
+    {
+        "class": "SP800-218",
+        "control-id": "PW-8.2"
     },
     {
         "class": "OWASP_DSOMM_3",
-        "control_id": "IG-3.3",
-        "statement-ids": []
+        "control-id": "IG-3.3",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IG-3.4",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "IG-2.5",
+    },
+    {
+        "class": "OWASP_DSOMM_3",
+        "control-id": "TV-6.3",
     },
 ]
