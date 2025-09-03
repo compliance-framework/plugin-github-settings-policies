@@ -1,5 +1,4 @@
 {
-  "settings": {
     "login": "test-org",
     "id": 1234567,
     "node_id": "O_abcdefg",
@@ -44,11 +43,11 @@
     "members_can_create_public_pages": true,
     "members_can_create_private_pages": true,
     "plan": {
-      "name": "free",
-      "space": 976562499,
-      "private_repos": 10000,
-      "filled_seats": 2,
-      "seats": 1
+        "name": "free",
+        "space": 976562499,
+        "private_repos": 10000,
+        "filled_seats": 2,
+        "seats": 1
     },
     "advanced_security_enabled_for_new_repositories": false,
     "dependabot_alerts_enabled_for_new_repositories": false,
@@ -59,5 +58,4 @@
     "secret_scanning_push_protection_custom_link_enabled": false,
     "secret_scanning_push_protection_custom_link": null,
     "secret_scanning_validity_checks_enabled": false
-  }
 }

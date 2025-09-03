@@ -1,15 +1,15 @@
 package compliance_framework.public_repos
 
-_checks["repos"] if {
-	input.settings.public_repos > 0
+checks["repos"] if {
+	input.public_repos > 0
 }
 
-_checks["gists"] if {
-	input.settings.public_gists > 0
+checks["gists"] if {
+	input.public_gists > 0
 }
 
 violation[{}] if {
-	some check in _checks
+	some check in checks
 }
 
 
