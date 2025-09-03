@@ -1,7 +1,7 @@
 package compliance_framework.mfa_enabled
 
 violation[{}] if {
-    input.two_factor_requirement_enabled == false
+    input.settings.two_factor_requirement_enabled == false
 }
 
 title := "Two Factor Authentication is required at an organization level"
