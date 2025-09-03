@@ -2,12 +2,12 @@ package compliance_framework.teams_security_found
 
 _team_with_security if {
     some team in input.teams
-    contains(team.name, "security")
+    contains(lower(team.name), "security")
 }
 
 _team_with_security if {
     some team in input.teams
-    contains(team.description, "security")
+    contains(lower(team.description), "security")
 }
 
 violation[{}] if {
