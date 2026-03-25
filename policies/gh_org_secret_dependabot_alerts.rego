@@ -37,7 +37,7 @@ risk_templates := [
 ]
 
 violation[{"id": "dependabot_alerts_not_default"}] if {
-    input.dependabot_alerts_enabled_for_new_repositories == false
+    input.settings.dependabot_alerts_enabled_for_new_repositories == false
 }
 
 title := "Dependabot alerts enabled for new repositories"
