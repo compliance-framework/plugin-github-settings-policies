@@ -40,5 +40,5 @@ violation[{"id": "team_not_closed"}] if {
     team.privacy != "closed"
 }
 
-title := "All teams are private within the organization"
-description := "All teams within the organization must be set to private to ensure sensitive information is not exposed."
+title := "All teams use closed visibility within the organization"
+description := "All teams within the organization must be set to 'closed' visibility to ensure consistent auditability and prevent hidden privilege groups."

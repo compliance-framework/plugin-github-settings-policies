@@ -5,16 +5,10 @@ risk_templates := [
     "name": "Dependabot alerts not enabled by default for new repositories",
     "title": "New Repositories Created Without Vulnerability Alert Coverage",
     "statement": "When Dependabot alerts are not enabled by default for new repositories, any repository created in the organization will silently accumulate vulnerable dependencies without notification. Security teams have no visibility into known CVEs affecting dependencies in these repositories until alerts are manually enabled, increasing the time-to-detection and the window of exposure.",
-    "likelihood_hint": "high",
+    "likelihood_hint": "moderate",
     "impact_hint": "high",
     "violation_ids": ["dependabot_alerts_not_default"],
     "threat_refs": [
-      {
-        "system": "https://cwe.mitre.org",
-        "external_id": "CWE-1104",
-        "title": "Use of Unmaintained Third Party Components",
-        "url": "https://cwe.mitre.org/data/definitions/1104.html"
-      },
       {
         "system": "https://cwe.mitre.org",
         "external_id": "CWE-693",

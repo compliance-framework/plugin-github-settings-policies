@@ -32,10 +32,10 @@ risk_templates := [
       "title": "Enforce two-factor authentication for all organization members",
       "description": "Enable the 'Require two-factor authentication' setting for the GitHub organization so that all current and future members must use 2FA. Members and outside collaborators who do not comply will be removed from the organization until they enable 2FA.",
       "tasks": [
+        { "title": "Audit current member 2FA status to identify non-compliant accounts before enforcement" },
+        { "title": "Communicate the 2FA requirement to all members and collaborators in advance" },
         { "title": "Navigate to Organization Settings > Security > Authentication security" },
         { "title": "Enable 'Require two-factor authentication for everyone in the organization'" },
-        { "title": "Audit current member 2FA status before enforcement to avoid accidental removals" },
-        { "title": "Communicate the 2FA requirement to all members and collaborators in advance" },
         { "title": "Review and re-invite any removed accounts once they have enabled 2FA" },
         { "title": "Consider enforcing SAML SSO as an additional layer of centralized identity control" }
       ]

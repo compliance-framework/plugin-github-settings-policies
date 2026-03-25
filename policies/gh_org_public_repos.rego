@@ -27,17 +27,18 @@ risk_templates := [
       "description": "Review all public repositories in the organization and convert any that should not be publicly accessible to private visibility. Archive any obsolete repositories to prevent accidental disclosure.",
       "tasks": [
         { "title": "Audit all public repositories in the organization" },
+        { "title": "Review repository contents and git history for exposed credentials, configuration, or internal documentation" },
+        { "title": "Rotate any credentials or secrets found in public repository history before changing visibility" },
         { "title": "Convert non-intentionally public repositories to private" },
         { "title": "Archive or delete obsolete public repositories" },
-        { "title": "Enable secret scanning on all repositories to detect any exposed credentials" },
-        { "title": "Review repository contents for sensitive configuration, credentials, or internal documentation before making private" }
+        { "title": "Enable secret scanning on all repositories to detect any remaining exposed credentials" }
       ]
     }
   },
   {
     "name": "Organization has public gists",
     "title": "Public Gists May Expose Sensitive Scripts or Configuration",
-    "statement": "Public gists associated with an organization's members can inadvertently expose internal scripts, configuration snippets, credentials, or operational procedures. Because gists are often used informally, developers may not realise that content shared via a public gist is indexed and discoverable by anyone.",
+    "statement": "Public gists associated with an organization's members can inadvertently expose internal scripts, configuration snippets, credentials, or operational procedures. Because gists are often used informally, developers may not realize that content shared via a public gist is indexed and discoverable by anyone.",
     "likelihood_hint": "moderate",
     "impact_hint": "moderate",
     "violation_ids": ["public_gists_present"],
@@ -67,14 +68,6 @@ risk_templates := [
     }
   }
 ]
-
-_checks["repos"] if {
-	input.settings.public_repos > 0
-}
-
-_checks["gists"] if {
-	input.settings.public_gists > 0
-}
 
 violation[{"id": "public_repos_present"}] if {
 	input.settings.public_repos > 0
