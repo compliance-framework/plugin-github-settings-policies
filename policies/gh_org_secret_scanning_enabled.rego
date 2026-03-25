@@ -44,7 +44,7 @@ risk_templates := [
 ]
 
 violation[{"id": "secret_scanning_not_default"}] if {
-    input.secret_scanning_enabled_for_new_repositories == false
+    input.settings.secret_scanning_enabled_for_new_repositories == false
 }
 
 title := "Secret Scanning is enabled for new repositories in the organization"
