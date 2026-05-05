@@ -37,8 +37,10 @@ risk_templates := [
   }
 ]
 
+_ip_allow_list := object.get(input, "ip_allow_list", [])
+
 _has_active_entry if {
-    some entry in input.ip_allow_list
+    some entry in _ip_allow_list
     entry.is_active == true
 }
 

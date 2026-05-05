@@ -23,3 +23,7 @@ test_ip_allowlist_empty if {
         "ip_allow_list": []
     }
 }
+
+test_ip_allowlist_missing if {
+    count(violation) > 0 with input as {}
+}

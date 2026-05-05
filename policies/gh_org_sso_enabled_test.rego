@@ -12,7 +12,7 @@ test_sso_enabled if {
 }
 
 test_sso_disabled if {
-    count(violation) > 0 with input as {
+    count(violation) == 1 with input as {
         "sso": {
             "enabled": false,
             "enforced": false,
@@ -23,7 +23,7 @@ test_sso_disabled if {
 }
 
 test_sso_enabled_but_not_enforced if {
-    count(violation) > 0 with input as {
+    count(violation) == 1 with input as {
         "sso": {
             "enabled": true,
             "enforced": false,
@@ -31,4 +31,8 @@ test_sso_enabled_but_not_enforced if {
             "idp_issuer": "https://sso.example.com"
         }
     }
+}
+
+test_sso_missing if {
+    count(violation) == 1 with input as {}
 }

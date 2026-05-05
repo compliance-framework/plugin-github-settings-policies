@@ -49,12 +49,13 @@ _sso_enabled := object.get(_sso, "enabled", false)
 
 _sso_enforced := object.get(_sso, "enforced", false)
 
-violation[{"id": "sso_not_enabled"}] if {
-    not _sso_enabled
+_sso_enabled_and_enforced if {
+    _sso_enabled
+    _sso_enforced
 }
 
 violation[{"id": "sso_not_enabled"}] if {
-    not _sso_enforced
+    not _sso_enabled_and_enforced
 }
 
 title := "SAML SSO is enabled for the organization"
