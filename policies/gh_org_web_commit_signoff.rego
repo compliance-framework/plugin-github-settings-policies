@@ -4,7 +4,7 @@ risk_templates := [
   {
     "name": "Web commit sign-off not required",
     "title": "Unsigned Web Commits Undermine Change Attribution and Audit Trail Integrity",
-    "statement": "When web commit sign-off is not enforced, commits made via the GitHub web interface lack a Developer Certificate of Origin (DCO) sign-off, which reduces the integrity of the change attribution record. In compliance contexts, every code change should be traceable to an accountable individual. Without sign-off enforcement, commits made through the web UI bypass the attribution guarantees that signed commits provide, creating gaps in the audit trail for change management controls.",
+    "statement": "When web commit sign-off is not enforced, commits made via the GitHub web interface lack a Developer Certificate of Origin (DCO) sign-off, which reduces the integrity of the change attribution record. In compliance contexts, every code change should be traceable to an accountable individual. Without sign-off enforcement, commits made through the web UI can bypass the DCO attestation expected for change management controls, creating gaps in the audit trail.",
     "likelihood_hint": "moderate",
     "impact_hint": "moderate",
     "violation_ids": ["web_commit_signoff_not_required"],

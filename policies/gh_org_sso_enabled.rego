@@ -58,6 +58,6 @@ violation[{"id": "sso_not_enabled"}] if {
     not _sso_enabled_and_enforced
 }
 
-title := "SAML SSO is enabled for the organization"
+title := "SAML SSO is enabled and enforced for the organization"
 description := "The GitHub organization must have SAML Single Sign-On enabled and enforced to ensure all member access is authenticated through the organization's centralized identity provider."
 remarks := "More information: https://docs.github.com/en/organizations/managing-saml-single-sign-on-for-your-organization/about-identity-and-access-management-with-saml-single-sign-on"
