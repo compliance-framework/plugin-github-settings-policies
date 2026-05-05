@@ -14,3 +14,7 @@ test_no_teams if {
         "teams": []
     }
 }
+
+test_teams_missing if {
+    count(violation) > 0 with input as {}
+}

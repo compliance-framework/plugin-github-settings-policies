@@ -37,8 +37,10 @@ risk_templates := [
   }
 ]
 
+_teams := object.get(input, "teams", [])
+
 violation[{"id": "no_teams_configured"}] if {
-    count(input.teams) == 0
+    count(_teams) == 0
 }
 
 title := "Organization has at least one team configured for role-based access control"

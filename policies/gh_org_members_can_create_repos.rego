@@ -27,8 +27,8 @@ risk_templates := [
       "description": "Disable the ability for regular organization members to create new repositories. Only administrators should be permitted to create repositories, ensuring each new repository is intentionally provisioned and subject to organizational security baselines.",
       "tasks": [
         { "title": "Navigate to Organization Settings > Member privileges" },
-        { "title": "Set 'Base permissions' for repository creation to 'None' or restrict to admins only" },
-        { "title": "Disable 'Allow members to create repositories' under Repository creation" },
+        { "title": "Review the Repository creation section for member repository creation settings" },
+        { "title": "Disable 'Allow members to create repositories' or restrict repository creation to administrators" },
         { "title": "Review and archive any repositories created without administrative approval" },
         { "title": "Document a repository provisioning process that routes requests through an administrator" }
       ]

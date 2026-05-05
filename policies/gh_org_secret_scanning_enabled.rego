@@ -43,19 +43,21 @@ risk_templates := [
   }
 ]
 
+_default_security_configs := object.get(input, "default_security_configs", [])
+
 _secret_scanning_default_enabled if {
-    some config in input.default_security_configs
+    some config in _default_security_configs
     config.configuration.secret_scanning == "enabled"
 }
 
 _secret_scanning_config_summary := summary if {
-    count(input.default_security_configs) == 0
+    count(_default_security_configs) == 0
     summary := "No default security configuration is set for the organization."
 }
 
 _secret_scanning_config_summary := summary if {
-    count(input.default_security_configs) > 0
-    entries := [sprintf("'%v' (default_for_new_repos: %v, secret_scanning: %v)", [c.configuration.name, c.default_for_new_repos, c.configuration.secret_scanning]) | some c in input.default_security_configs]
+    count(_default_security_configs) > 0
+    entries := [sprintf("'%v' (default_for_new_repos: %v, secret_scanning: %v)", [c.configuration.name, c.default_for_new_repos, c.configuration.secret_scanning]) | some c in _default_security_configs]
     summary := sprintf("Default security configurations found: [%v]", [concat(", ", entries)])
 }
 

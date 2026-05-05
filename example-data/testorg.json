@@ -60,15 +60,30 @@
     "secret_scanning_push_protection_custom_link": null,
     "secret_scanning_validity_checks_enabled": true
   },
-  "members": [
+  "owners": [
     {"login": "admin-user-1", "id": 1001},
     {"login": "admin-user-2", "id": 1002}
   ],
+  "teams": [
+    {"name": "developers", "privacy": "closed", "description": "Application development team"},
+    {"name": "security", "privacy": "closed", "description": "Security operations team"}
+  ],
   "sso": {
     "enabled": true,
+    "enforced": true,
     "sso_url": "https://sso.example.com/saml/github",
     "idp_issuer": "https://sso.example.com"
   },
+  "default_security_configs": [
+    {
+      "default_for_new_repos": "all",
+      "configuration": {
+        "name": "Baseline Security Profile",
+        "secret_scanning": "enabled",
+        "dependabot_alerts": "enabled"
+      }
+    }
+  ],
   "ip_allow_list": [
     {"allow_list_value": "203.0.113.0/24", "is_active": true, "name": "Office Network"},
     {"allow_list_value": "198.51.100.0/24", "is_active": true, "name": "VPN"}

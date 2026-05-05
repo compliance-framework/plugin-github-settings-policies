@@ -43,8 +43,18 @@ risk_templates := [
   }
 ]
 
+_sso := object.get(input, "sso", {})
+
+_sso_enabled := object.get(_sso, "enabled", false)
+
+_sso_enforced := object.get(_sso, "enforced", false)
+
 violation[{"id": "sso_not_enabled"}] if {
-    input.sso.enabled == false
+    not _sso_enabled
+}
+
+violation[{"id": "sso_not_enabled"}] if {
+    not _sso_enforced
 }
 
 title := "SAML SSO is enabled for the organization"

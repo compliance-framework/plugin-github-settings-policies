@@ -41,6 +41,10 @@ test_violate_when_no_default_configs if {
     }
 }
 
+test_violate_when_default_configs_missing if {
+    count(violation) > 0 with input as {}
+}
+
 test_violate_when_all_configs_have_dependabot_alerts_disabled if {
     count(violation) > 0 with input as {
         "default_security_configs": [

@@ -60,7 +60,7 @@
     "secret_scanning_push_protection_custom_link": null,
     "secret_scanning_validity_checks_enabled": false
   },
-  "members": [
+  "owners": [
     {"login": "admin-user-1", "id": 1001},
     {"login": "admin-user-2", "id": 1002},
     {"login": "admin-user-3", "id": 1003},
@@ -69,10 +69,22 @@
     {"login": "admin-user-6", "id": 1006},
     {"login": "admin-user-7", "id": 1007}
   ],
+  "teams": [],
   "sso": {
     "enabled": false,
+    "enforced": false,
     "sso_url": "",
     "idp_issuer": ""
   },
+  "default_security_configs": [
+    {
+      "default_for_new_repos": "all",
+      "configuration": {
+        "name": "Legacy Security Profile",
+        "secret_scanning": "disabled",
+        "dependabot_alerts": "not_set"
+      }
+    }
+  ],
   "ip_allow_list": []
 }
