@@ -42,10 +42,14 @@ risk_templates := [
   }
 ]
 
-_permissive_permissions := {"write", "admin"}
+_settings := object.get(input, "settings", {})
+
+_default_repository_permission := object.get(_settings, "default_repository_permission", "")
+
+_allowed_permissions := {"read", "none"}
 
 violation[{"id": "default_permission_too_permissive"}] if {
-    _permissive_permissions[input.settings.default_repository_permission]
+    not _allowed_permissions[_default_repository_permission]
 }
 
 title := "Default repository permission is set to 'read' or 'none'"

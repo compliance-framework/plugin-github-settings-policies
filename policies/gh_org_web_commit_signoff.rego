@@ -35,8 +35,12 @@ risk_templates := [
   }
 ]
 
+_settings := object.get(input, "settings", {})
+
+_web_commit_signoff_required := object.get(_settings, "web_commit_signoff_required", false)
+
 violation[{"id": "web_commit_signoff_not_required"}] if {
-    input.settings.web_commit_signoff_required == false
+    not _web_commit_signoff_required
 }
 
 title := "Web commit sign-off is required for the organization"

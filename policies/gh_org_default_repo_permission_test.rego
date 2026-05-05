@@ -31,3 +31,7 @@ test_default_permission_admin if {
         }
     }
 }
+
+test_default_permission_missing if {
+    count(violation) > 0 with input as {}
+}

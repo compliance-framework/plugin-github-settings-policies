@@ -36,8 +36,12 @@ risk_templates := [
   }
 ]
 
+_settings := object.get(input, "settings", {})
+
+_members_can_create_repositories := object.get(_settings, "members_can_create_repositories", true)
+
 violation[{"id": "members_can_create_repos"}] if {
-    input.settings.members_can_create_repositories == true
+    _members_can_create_repositories
 }
 
 title := "Organization members cannot create repositories"

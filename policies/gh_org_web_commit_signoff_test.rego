@@ -15,3 +15,7 @@ test_web_commit_signoff_not_required if {
         }
     }
 }
+
+test_web_commit_signoff_missing if {
+    count(violation) > 0 with input as {}
+}

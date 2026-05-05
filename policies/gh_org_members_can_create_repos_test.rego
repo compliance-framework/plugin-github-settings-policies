@@ -15,3 +15,7 @@ test_members_can_create_repos if {
         }
     }
 }
+
+test_members_create_repos_missing if {
+    count(violation) > 0 with input as {}
+}
