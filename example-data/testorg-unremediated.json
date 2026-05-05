@@ -59,5 +59,20 @@
     "secret_scanning_push_protection_custom_link_enabled": false,
     "secret_scanning_push_protection_custom_link": null,
     "secret_scanning_validity_checks_enabled": false
-  }
+  },
+  "members": [
+    {"login": "admin-user-1", "id": 1001},
+    {"login": "admin-user-2", "id": 1002},
+    {"login": "admin-user-3", "id": 1003},
+    {"login": "admin-user-4", "id": 1004},
+    {"login": "admin-user-5", "id": 1005},
+    {"login": "admin-user-6", "id": 1006},
+    {"login": "admin-user-7", "id": 1007}
+  ],
+  "sso": {
+    "enabled": false,
+    "sso_url": "",
+    "idp_issuer": ""
+  },
+  "ip_allow_list": []
 }

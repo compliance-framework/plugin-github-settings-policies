@@ -59,5 +59,18 @@
     "secret_scanning_push_protection_custom_link_enabled": true,
     "secret_scanning_push_protection_custom_link": null,
     "secret_scanning_validity_checks_enabled": true
-  }
+  },
+  "members": [
+    {"login": "admin-user-1", "id": 1001},
+    {"login": "admin-user-2", "id": 1002}
+  ],
+  "sso": {
+    "enabled": true,
+    "sso_url": "https://sso.example.com/saml/github",
+    "idp_issuer": "https://sso.example.com"
+  },
+  "ip_allow_list": [
+    {"allow_list_value": "203.0.113.0/24", "is_active": true, "name": "Office Network"},
+    {"allow_list_value": "198.51.100.0/24", "is_active": true, "name": "VPN"}
+  ]
 }
