@@ -7,7 +7,7 @@ risk_templates := [
     "statement": "Organization owners in GitHub hold the highest level of privilege: they can modify security settings, manage all members and teams, access all repositories, and permanently delete the organization. Granting owner access to more than 5 individuals significantly increases the attack surface for privilege abuse, insider threats, and account compromise scenarios. Limiting ownership to a small, well-controlled set ensures that elevated access is deliberately granted and periodically reviewed.",
     "likelihood_hint": "moderate",
     "impact_hint": "high",
-    "violation_ids": ["too_many_owners"],
+    "violation_ids": ["too_many_owners", "owners_missing"],
     "threat_refs": [
       {
         "system": "https://cwe.mitre.org",
@@ -37,6 +37,10 @@ risk_templates := [
 ]
 
 _owners := object.get(input, "owners", [])
+
+violation[{"id": "owners_missing"}] if {
+    not "owners" in object.keys(input)
+}
 
 violation[{"id": "too_many_owners"}] if {
     count(_owners) > 5

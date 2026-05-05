@@ -34,3 +34,7 @@ test_admin_count_exceeded if {
         ]
     }
 }
+
+test_admin_count_missing_owners if {
+    count(violation) > 0 with input as {}
+}
