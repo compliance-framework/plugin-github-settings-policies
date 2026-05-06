@@ -29,24 +29,59 @@ risk_templates := [
       }
     ],
     "remediation": {
-      "title": "Enable secret scanning by default for all new repositories",
-      "description": "Configure the GitHub organization to automatically enable secret scanning on every new repository. Extend coverage retroactively to existing repositories that currently lack it.",
+      "title": "Set a default security configuration with secret scanning enabled for new repositories",
+      "description": "Create or update a code security configuration in the organization and mark it as the default for new repositories. Ensure secret scanning is set to 'enabled' in that configuration.",
       "tasks": [
-        { "title": "Navigate to Organization Settings > Code security and analysis" },
-        { "title": "Enable 'Secret scanning' for all new repositories" },
-        { "title": "Retroactively enable secret scanning on all existing repositories" },
+        { "title": "Navigate to Organization Settings > Security > Advanced Security > Configurations" },
+        { "title": "Create or edit a security configuration and enable 'Secret scanning'" },
+        { "title": "Set the configuration as default for new repositories (public, private, or all)" },
+        { "title": "Retroactively apply the configuration to existing repositories that lack coverage" },
         { "title": "Review all existing secret scanning alerts and revoke any exposed credentials immediately" },
-        { "title": "Configure push protection at the organization level to block secrets before they enter the repository" },
         { "title": "Establish a runbook for responding to secret scanning alerts within an agreed SLA" }
       ]
     }
   }
 ]
 
-violation[{"id": "secret_scanning_not_default"}] if {
-    input.settings.secret_scanning_enabled_for_new_repositories == false
+_default_security_configs := object.get(input, "default_security_configs", [])
+
+_secret_scanning_enabled_for_all_new_repos if {
+    some config in _default_security_configs
+    config.default_for_new_repos == "all"
+    config.configuration.secret_scanning == "enabled"
+}
+
+_secret_scanning_enabled_for_all_new_repos if {
+    some public_config in _default_security_configs
+    public_config.default_for_new_repos == "public"
+    public_config.configuration.secret_scanning == "enabled"
+
+    some private_config in _default_security_configs
+    private_config.default_for_new_repos == "private_and_internal"
+    private_config.configuration.secret_scanning == "enabled"
+}
+
+_secret_scanning_config_summary := summary if {
+    count(_default_security_configs) == 0
+    summary := "No default security configuration is set for the organization."
+}
+
+_secret_scanning_config_summary := summary if {
+    count(_default_security_configs) > 0
+    entries := [sprintf("'%v' (default_for_new_repos: %v, secret_scanning: %v)", [c.configuration.name, c.default_for_new_repos, c.configuration.secret_scanning]) | some c in _default_security_configs]
+    summary := sprintf("Default security configurations found: [%v]", [concat(", ", entries)])
+}
+
+violation[{
+    "id": "secret_scanning_not_default",
+    "description": sprintf(
+        "Secret scanning is not enabled for all new repositories. Expected: an 'all' default configuration with secret_scanning = 'enabled', or enabled defaults for both public and private/internal repositories. Current state: %v",
+        [_secret_scanning_config_summary]
+    )
+}] if {
+    not _secret_scanning_enabled_for_all_new_repos
 }
 
 title := "Secret Scanning is enabled for new repositories in the organization"
-description := "All new repositories should be set up for secret scanning as the default."
-remarks := "Endpoint is closing down at some point and moving to code security configurations: See https://docs.github.com/rest/code-security/configurations"
+description := "Checks that default code security configurations enable secret scanning for all new repositories in the organization. This requires an 'all' default configuration with 'secret_scanning' set to 'enabled', or enabled defaults for both public and private/internal repositories. Configurations are evaluated via GET /orgs/{org}/code-security/configurations/defaults. A configuration with 'secret_scanning: not_set' or 'secret_scanning: disabled' does not satisfy this requirement."
+remarks := "Checked via GET /orgs/{org}/code-security/configurations/defaults. See https://docs.github.com/en/rest/code-security/configurations#get-default-code-security-configurations"
