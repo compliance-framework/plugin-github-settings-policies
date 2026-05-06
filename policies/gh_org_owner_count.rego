@@ -71,10 +71,6 @@ risk_templates := [
 _owners := object.get(input, "owners", [])
 
 violation[{"id": "owners_missing"}] if {
-    not "owners" in object.keys(input)
-}
-
-violation[{"id": "owners_missing"}] if {
     count(_owners) == 0
 }
 

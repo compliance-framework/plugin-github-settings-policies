@@ -94,6 +94,20 @@ test_violate_when_all_configs_have_secret_scanning_disabled if {
     }
 }
 
+test_violate_when_all_configs_have_secret_scanning_not_set if {
+    count(violation) > 0 with input as {
+        "default_security_configs": [
+            {
+                "default_for_new_repos": "all",
+                "configuration": {
+                    "name": "Baseline Security Profile",
+                    "secret_scanning": "not_set"
+                }
+            }
+        ]
+    }
+}
+
 test_violation_includes_config_details if {
     v := violation with input as {
         "default_security_configs": [
