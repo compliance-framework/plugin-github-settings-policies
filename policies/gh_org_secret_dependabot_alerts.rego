@@ -38,9 +38,20 @@ risk_templates := [
 
 _default_security_configs := object.get(input, "default_security_configs", [])
 
-_dependabot_alerts_default_enabled if {
+_dependabot_alerts_enabled_for_all_new_repos if {
     some config in _default_security_configs
+    config.default_for_new_repos == "all"
     config.configuration.dependabot_alerts == "enabled"
+}
+
+_dependabot_alerts_enabled_for_all_new_repos if {
+    some public_config in _default_security_configs
+    public_config.default_for_new_repos == "public"
+    public_config.configuration.dependabot_alerts == "enabled"
+
+    some private_config in _default_security_configs
+    private_config.default_for_new_repos == "private_and_internal"
+    private_config.configuration.dependabot_alerts == "enabled"
 }
 
 _current_config_summary := summary if {
@@ -57,13 +68,13 @@ _current_config_summary := summary if {
 violation[{
     "id": "dependabot_alerts_not_default",
     "description": sprintf(
-        "Dependabot alerts are not enabled in any default security configuration. Expected: at least one default configuration with dependabot_alerts = 'enabled'. Current state: %v",
+        "Dependabot alerts are not enabled for all new repositories. Expected: an 'all' default configuration with dependabot_alerts = 'enabled', or enabled defaults for both public and private/internal repositories. Current state: %v",
         [_current_config_summary]
-    ),
+    )
 }] if {
-    not _dependabot_alerts_default_enabled
+    not _dependabot_alerts_enabled_for_all_new_repos
 }
 
 title := "Dependabot alerts enabled for new repositories"
-description := "Checks that at least one default code security configuration exists for the organization with 'dependabot_alerts' set to 'enabled'. This ensures new repositories automatically receive vulnerability alert coverage without manual intervention. Configurations are evaluated via GET /orgs/{org}/code-security/configurations/defaults. A configuration with 'dependabot_alerts: not_set' or 'dependabot_alerts: disabled' does not satisfy this requirement."
+description := "Checks that default code security configurations enable Dependabot alerts for all new repositories in the organization. This requires an 'all' default configuration with 'dependabot_alerts' set to 'enabled', or enabled defaults for both public and private/internal repositories. Configurations are evaluated via GET /orgs/{org}/code-security/configurations/defaults. A configuration with 'dependabot_alerts: not_set' or 'dependabot_alerts: disabled' does not satisfy this requirement."
 remarks := "Checked via GET /orgs/{org}/code-security/configurations/defaults. See https://docs.github.com/en/rest/code-security/configurations#get-default-code-security-configurations"
