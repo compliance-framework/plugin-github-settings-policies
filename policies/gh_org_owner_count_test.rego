@@ -38,3 +38,9 @@ test_owner_count_exceeded if {
 test_owner_count_missing_owners if {
     count(violation) > 0 with input as {}
 }
+
+test_owner_count_empty_owners if {
+    count(violation) > 0 with input as {
+        "owners": []
+    }
+}

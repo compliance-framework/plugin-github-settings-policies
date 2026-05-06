@@ -74,6 +74,10 @@ violation[{"id": "owners_missing"}] if {
     not "owners" in object.keys(input)
 }
 
+violation[{"id": "owners_missing"}] if {
+    count(_owners) == 0
+}
+
 violation[{"id": "too_many_owners"}] if {
     count(_owners) > 5
 }
