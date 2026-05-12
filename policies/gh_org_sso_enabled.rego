@@ -43,15 +43,19 @@ risk_templates := [
   }
 ]
 
-_sso := object.get(input, "sso", null)
+_sso := object.get(input, "sso", {})
 
 skip_reason := "SSO configuration data is unavailable (token may lack permissions), cannot evaluate SSO enforcement status" if {
-    _sso == null
+    input.sso == null
 }
 
-_sso_enabled := object.get(_sso, "enabled", false)
+_sso_enabled := object.get(_sso, "enabled", false) if {
+    _sso != null
+}
 
-_sso_enforced := object.get(_sso, "enforced", false)
+_sso_enforced := object.get(_sso, "enforced", false) if {
+    _sso != null
+}
 
 _sso_enabled_and_enforced if {
     _sso_enabled
@@ -59,6 +63,7 @@ _sso_enabled_and_enforced if {
 }
 
 violation[{"id": "sso_not_enabled"}] if {
+    not skip_reason
     not _sso_enabled_and_enforced
 }
 

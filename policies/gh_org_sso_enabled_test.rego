@@ -38,8 +38,10 @@ test_sso_missing if {
 }
 
 test_sso_null_with_skip_reason if {
-    skip_reason == "SSO configuration data is unavailable (token may lack permissions), cannot evaluate SSO enforcement status"
-    with input as {
+    skip_reason == "SSO configuration data is unavailable (token may lack permissions), cannot evaluate SSO enforcement status" with input as {
+        "sso": null
+    }
+    count(violation) == 0 with input as {
         "sso": null
     }
 }
