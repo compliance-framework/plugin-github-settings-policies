@@ -1,0 +1,46 @@
+package compliance_framework.owner_count
+
+test_owner_count_compliant if {
+    count(violation) == 0 with input as {
+        "owners": [
+            {"login": "admin1"},
+            {"login": "admin2"},
+            {"login": "admin3"}
+        ]
+    }
+}
+
+test_owner_count_at_limit if {
+    count(violation) == 0 with input as {
+        "owners": [
+            {"login": "admin1"},
+            {"login": "admin2"},
+            {"login": "admin3"},
+            {"login": "admin4"},
+            {"login": "admin5"}
+        ]
+    }
+}
+
+test_owner_count_exceeded if {
+    count(violation) > 0 with input as {
+        "owners": [
+            {"login": "admin1"},
+            {"login": "admin2"},
+            {"login": "admin3"},
+            {"login": "admin4"},
+            {"login": "admin5"},
+            {"login": "admin6"}
+        ]
+    }
+}
+
+test_owner_count_missing_owners if {
+    count(violation) > 0 with input as {}
+}
+
+test_owner_count_empty_owners if {
+    count(violation) > 0 with input as {
+        "owners": []
+    }
+}
