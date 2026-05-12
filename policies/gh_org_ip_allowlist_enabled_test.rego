@@ -24,6 +24,16 @@ test_ip_allowlist_empty if {
     }
 }
 
-test_ip_allowlist_missing if {
-    count(violation) > 0 with input as {}
+test_ip_allowlist_null_skips if {
+    count(violation) == 0 with input as {
+        "ip_allow_list": null
+    }
+    skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {
+        "ip_allow_list": null
+    }
+}
+
+test_ip_allowlist_missing_skips if {
+    count(violation) == 0 with input as {}
+    skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {}
 }
