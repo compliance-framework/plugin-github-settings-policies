@@ -43,7 +43,11 @@ risk_templates := [
   }
 ]
 
-_sso := object.get(input, "sso", {})
+_sso := object.get(input, "sso", null)
+
+skip_reason := "SSO configuration data is unavailable (token may lack permissions), cannot evaluate SSO enforcement status" if {
+    _sso == null
+}
 
 _sso_enabled := object.get(_sso, "enabled", false)
 

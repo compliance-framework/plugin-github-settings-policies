@@ -37,7 +37,11 @@ risk_templates := [
   }
 ]
 
-_ip_allow_list := object.get(input, "ip_allow_list", [])
+_ip_allow_list := object.get(input, "ip_allow_list", null)
+
+skip_reason := "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" if {
+    _ip_allow_list == null
+}
 
 _has_active_entry if {
     some entry in _ip_allow_list
@@ -45,6 +49,7 @@ _has_active_entry if {
 }
 
 violation[{"id": "ip_allowlist_not_configured"}] if {
+    _ip_allow_list != null
     not _has_active_entry
 }
 

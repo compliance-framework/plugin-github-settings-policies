@@ -36,3 +36,10 @@ test_sso_enabled_but_not_enforced if {
 test_sso_missing if {
     count(violation) == 1 with input as {}
 }
+
+test_sso_null_with_skip_reason if {
+    skip_reason == "SSO configuration data is unavailable (token may lack permissions), cannot evaluate SSO enforcement status"
+    with input as {
+        "sso": null
+    }
+}
