@@ -1,0 +1,3 @@
+lisa-design:
+- Layer 1 of a two-PR stack (W2-S4-T02 size rule): pure `opa fmt -w policies` output from OPA 1.14.1, nothing else. Raw diff is 1804 lines, `git diff -w` 654; workflows and every Regal fix go in layer 2 (ra/w2-s4-t02-shared-ci).
+- Behaviour proof: `opa eval data.compliance_framework` on 76 inputs (42 unique test inputs + example-data + 32 hand-made) is identical to main, all 52 test_* true on both.
