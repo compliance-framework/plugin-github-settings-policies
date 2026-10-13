@@ -4,3 +4,6 @@ lisa-design:
 - No version.txt added by hand: release-type simple adds it in the first release PR (spec W3-S2 step 2).
 - release.yml keeps directory: policies and opa-version 1.14.1 (the agent's OPA): the bundle digest is evidence provenance, and old vs new opa build output is byte-identical at 1.14.1.
 - README untouched: it documents testing and make build, not releasing.
+
+lisa-selfreview:
+- pass 1 (packs core, rego-policy): approve, no findings. Callers match mock-plugin-policies-1 at v1.5.2; actionlint clean; opa 1.14.1 build/check/test (52/52) pass; old and new opa build invocations give byte-identical bundles.
