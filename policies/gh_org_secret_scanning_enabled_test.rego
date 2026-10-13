@@ -95,7 +95,7 @@ test_violation_includes_config_details if {
 		},
 	}]}
 	count(v) > 0
-	v[entry]
+	some entry, _ in v
 	contains(entry.description, "Baseline Security Profile")
 	contains(entry.description, "secret_scanning: disabled")
 }
