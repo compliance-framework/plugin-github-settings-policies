@@ -1,0 +1,6 @@
+lisa-design:
+- Callers are verbatim copies of mock-plugin-policies-1 with pins moved to workflows v1.5.2 (6e7fc9c); they are the org reference, so don't customise them per repo.
+- Manifest seeded at 0.4.1 = releases/latest (v0.4.1, final, commit a038386 is an ancestor of main), so no bootstrap-sha.
+- No version.txt added by hand: release-type simple adds it in the first release PR (spec W3-S2 step 2).
+- release.yml keeps directory: policies and opa-version 1.14.1 (the agent's OPA): the bundle digest is evidence provenance, and old vs new opa build output is byte-identical at 1.14.1.
+- README untouched: it documents testing and make build, not releasing.
