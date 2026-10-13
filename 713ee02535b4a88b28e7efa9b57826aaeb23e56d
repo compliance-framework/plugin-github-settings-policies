@@ -1,0 +1,5 @@
+lisa-design:
+- Layer 2 of the stack, based on ra/w2-s4-t02-opa-fmt (pure opa fmt). ci.yml copied unchanged from mock-plugin-policies-1 (v1.5.1 pins); push.yaml and test.yml deleted (only push.yaml called test.yml; release.yml/build-and-upload.yml untouched).
+- Regal equals-over-count on count(_owners)/count(_teams)/count(_default_security_configs) left: values come from input via object.get, and `== []`/`!= []` differ from count() for null, objects and strings.
+- Regal prefer-string-interpolation left on the two violation descriptions: when default_security_configs is null the summary is undefined, so sprintf makes the violation undefined today; string interpolation would emit it with "<undefined>".
+- `v[entry]` -> `some entry, _ in v` (violation is a partial object keyed by the violation; `some entry in v` would bind true).
