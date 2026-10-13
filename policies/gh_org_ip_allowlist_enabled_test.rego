@@ -1,39 +1,29 @@
 package compliance_framework.ip_allowlist_enabled
 
 test_ip_allowlist_configured if {
-    count(violation) == 0 with input as {
-        "ip_allow_list": [
-            {"allow_list_value": "203.0.113.0/24", "is_active": true, "name": "Office"},
-            {"allow_list_value": "198.51.100.0/24", "is_active": false, "name": "Old VPN"}
-        ]
-    }
+	count(violation) == 0 with input as {"ip_allow_list": [
+		{"allow_list_value": "203.0.113.0/24", "is_active": true, "name": "Office"},
+		{"allow_list_value": "198.51.100.0/24", "is_active": false, "name": "Old VPN"},
+	]}
 }
 
 test_ip_allowlist_all_inactive if {
-    count(violation) > 0 with input as {
-        "ip_allow_list": [
-            {"allow_list_value": "203.0.113.0/24", "is_active": false, "name": "Disabled"},
-            {"allow_list_value": "198.51.100.0/24", "is_active": false, "name": "Also Disabled"}
-        ]
-    }
+	count(violation) > 0 with input as {"ip_allow_list": [
+		{"allow_list_value": "203.0.113.0/24", "is_active": false, "name": "Disabled"},
+		{"allow_list_value": "198.51.100.0/24", "is_active": false, "name": "Also Disabled"},
+	]}
 }
 
 test_ip_allowlist_empty if {
-    count(violation) > 0 with input as {
-        "ip_allow_list": []
-    }
+	count(violation) > 0 with input as {"ip_allow_list": []}
 }
 
 test_ip_allowlist_null_skips if {
-    count(violation) == 0 with input as {
-        "ip_allow_list": null
-    }
-    skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {
-        "ip_allow_list": null
-    }
+	count(violation) == 0 with input as {"ip_allow_list": null}
+	skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {"ip_allow_list": null}
 }
 
 test_ip_allowlist_missing_skips if {
-    count(violation) == 0 with input as {}
-    skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {}
+	count(violation) == 0 with input as {}
+	skip_reason == "IP allow-list data is unavailable (collection may be disabled or token may lack permissions), cannot evaluate IP allow-list configuration" with input as {}
 }
